@@ -1,5 +1,74 @@
-<h1 class="mt-4">Dashboard</h1>
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-primary">
+    <a class="navbar-brand" href="#">iLab</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarColor01">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="/dashboard">Inicio <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/dashboard/inventario">Inventario</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/dashboard/prestamos">Préstamos</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/dashboard/cuenta">Mi Cuenta</a>
+            </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+            <ul class="navbar-nav mr-auto">
+                <li class="text-white">
+                    <i class="fas fa-user-circle"></i>
+                    <%= email %>
+                        &nbsp;&nbsp;
+                </li>
+            </ul>
+            <a href="/users/logout" class="btn btn-secondary">Cerrar sesión</a>
+        </form>
+    </div>
+</nav>
+
+<h1 class="mt-5" style="padding: 45px 0 0 0;">Inicio</h1>
 <p class="lead mb-3">Bienvenido
     <%= name %>
 </p>
-<a href="/users/logout" class="btn btn-secondary">Salir</a>
+
+
+<div class="container mt-5">
+    <div class="card-deck mb-3 text-center">
+        <div class="card mb-4 box-shadow shadow rounded" style="background-color: #86FF9E;">
+            <div class="efectillo1">
+                <a href="/dashboard/inventario" style="color: inherit; text-decoration: none;">
+                    <div class="card-body mt-5 mb-5">
+                        <div class="display-4 mb-2">Inventario</div>
+                        <h1><i class="fas fa-warehouse text-white"></i></h1>
+                    </div>
+            </div>
+            </a>
+        </div>
+        <div class="card mb-4 box-shadow shadow rounded" style="background-color: rgb(255, 168, 134);">
+            <div class="efectillo2">
+                <a href="/dashboard/prestamos" style="color: inherit; text-decoration: none;">
+                    <div class="card-body mt-5 mb-5">
+                        <div class="display-4 mb-2">Préstamos</div>
+                        <h1><i class="fas fa-handshake text-white"></i></h1>
+                    </div>
+            </div>
+            </a>
+        </div>
+        <div class="card mb-4 box-shadow shadow rounded" style="background-color: rgb(253, 255, 112);">
+            <div class="efectillo3">
+                <a href="/dashboard/cuenta" style="color: inherit; text-decoration: none;">
+                    <div class="card-body mt-5 mb-5">
+                        <div class="display-4 mb-2">Mi Cuenta</div>
+                        <h1><i class="fas fa-user-alt text-white"></i></h1>
+                    </div>
+            </div>
+            </a>
+        </div>
+    </div>
+</div>

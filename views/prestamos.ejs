@@ -1,0 +1,33 @@
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-primary">
+    <a class="navbar-brand" href="#">iLab</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+
+    <div class="collapse navbar-collapse" id="navbarColor01">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="/dashboard/dashboard">Inicio</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/dashboard/inventario">Inventario </a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="/dashboard/prestamos">Préstamos <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/dashboard/cuenta">Mi Cuenta</a>
+            </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+            <ul class="navbar-nav mr-auto">
+                <li class="text-white">
+                    <i class="fas fa-user-circle"></i>
+                    <%= email %>
+                        &nbsp;&nbsp;
+                </li>
+            </ul>
+            <a href="/users/logout" class="btn btn-secondary">Cerrar sesión</a>
+        </form>
+    </div>
+</nav>

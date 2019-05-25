@@ -1,0 +1,69 @@
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-primary">
+    <a class="navbar-brand" href="#">iLab</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+    <div class="collapse navbar-collapse" id="navbarColor01">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="/dashboard/dashboard">Inicio</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="/dashboard/inventario">Inventario <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/dashboard/prestamos">Préstamos</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/dashboard/cuenta">Mi Cuenta</a>
+            </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+            <ul class="navbar-nav mr-auto">
+                <li class="text-white">
+                    <i class="fas fa-user-circle"></i>
+                    <%= email %>
+                        &nbsp;&nbsp;
+                </li>
+            </ul>
+            <a href="/users/logout" class="btn btn-secondary">Cerrar sesión</a>
+        </form>
+    </div>
+</nav>
+
+
+<div class="pricing-header mt-5 px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+    <h1 class="display-4">Inventario</h1>
+    <p>
+        <a href="/dashboard/agregarinv" class="btn btn-success my-2"><i class="fas fa-plus text-white"></i>&nbsp;&nbsp;Entrada</a>
+        <a href="/dashboard/salidainv" class="btn btn-danger my-2"><i class="fas fa-minus"></i>&nbsp;&nbsp;Salida</a>
+    </p>
+</div>
+
+
+
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">Compuesto</th>
+            <th scope="col">Marca</th>
+            <th scope="col">Descripción</th>
+            <th scope="col">Cantidad</th>
+            <th scope="col">Opciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr class="table-light">
+
+            <!--
+            <th scope="row">Light</th>
+            <td>Column content</td>
+            <td>Column content</td>
+            <td>Column content</td>
+            <td><a href="#" class="btn btn-outline-warning ml-3"><i class="fas fa-trash-alt text-danger"></i></a></td>
+            -->
+        </tr>
+    </tbody>
+</table>

@@ -1,0 +1,70 @@
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-primary">
+    <a class="navbar-brand" href="#">iLab</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+
+    <div class="collapse navbar-collapse" id="navbarColor01">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="/dashboard/dashboard">Inicio</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="/dashboard/inventario">Inventario <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/dashboard/prestamos">Préstamos</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/dashboard/cuenta">Mi Cuenta</a>
+            </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+            <ul class="navbar-nav mr-auto">
+                <li class="text-white">
+                    <i class="fas fa-user-circle"></i>
+                    <%= email %>
+                        &nbsp;&nbsp;
+                </li>
+            </ul>
+            <a href="/users/logout" class="btn btn-secondary">Cerrar sesión</a>
+        </form>
+    </div>
+</nav>
+
+<div class="py-5 text-center mt-5">
+    <h2>Agregar inventario</h2>
+</div>
+
+<div class="container py-5">
+    <form action="/dashboard/addinv" method="POST" class="container">
+        <fieldset class="container">
+            <legend>Datos del producto</legend>
+            <div class="row container">
+                <div class="form-group">
+                    <label>Marca</label>
+                    <input type="text" class="form-control" id="marca" placeholder="Marca del producto">
+                </div>
+
+                <div class="form-group ml-5">
+                    <label>Compuesto</label>
+                    <input type="text" class="form-control" id="compuesto" placeholder="Compuesto">
+                </div>
+                <div class="form-group ml-5">
+                    <label>Cantidad (lt)</label>
+                    <input class="form-control" type="number" id="cantidad" name="cantidad" step="0.1" min="0.1" max="3.00" value="0.1">
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Descripcion</label>
+                <textarea class="form-control" id="descripcion" rows="3" placeholder="Agrega una breve descripción..."></textarea>
+            </div>
+            <hr>
+            <div class="text-center">
+                <div class="container ">
+                    <button type="submit" class="btn btn-primary">Agregar</button>
+                    <a class="btn btn-secondary ml-5" href="/dashboard/inventario">Cancelar</a>
+                </div>
+            </div>
+    </form>
+</div>
