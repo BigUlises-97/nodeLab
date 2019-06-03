@@ -1,7 +1,6 @@
-//Decimal128
-
 const mongoose = require('mongoose');
-const TaskSchema = new mongoose.Schema({
+
+const TasksSchema = new mongoose.Schema({
     compuesto: {
         type: String,
         required: true
@@ -16,6 +15,6 @@ const TaskSchema = new mongoose.Schema({
     }
 });
 
-const Task = mongoose.model('Tasks', TaskSchema);
+const Tasks = mongoose.model('Tasks', TasksSchema);
 
-module.exports = Task;
+module.exports = Tasks;

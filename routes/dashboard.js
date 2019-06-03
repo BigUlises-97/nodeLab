@@ -3,10 +3,11 @@ const router = express.Router();
 const { ensureAuthenticated } = require('../config/auth');
 
 //Tasks
-const Task = require('../models/Task');
+const Tasks = require('../models/Tasks');
 
 //Inicio
 router.get('/dashboard', ensureAuthenticated, (req, res) =>
+
     res.render('dashboard', {
         name: req.user.name,
         email: req.user.email
@@ -14,17 +15,21 @@ router.get('/dashboard', ensureAuthenticated, (req, res) =>
 
 //Inventario
 router.get('/inventario', ensureAuthenticated, (req, res) =>
-    res.render('inventario', {
-        name: req.user.name,
-        email: req.user.email
+    Tasks.find({}, function(err, data) {
+        if (err) throw err;
+        res.render('inventario', {
+            name: req.user.name,
+            email: req.user.email,
+            data: data
+        })
+        console.log(data);
     }));
 
 //Agregar inventario
 router.get('/agregarinv', ensureAuthenticated, (req, res) =>
     res.render('agregarinv', {
         name: req.user.name,
-        email: req.user.email,
-        task: []
+        email: req.user.email
     }));
 
 //Prestamos

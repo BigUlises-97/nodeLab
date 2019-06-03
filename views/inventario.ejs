@@ -41,29 +41,39 @@
     </p>
 </div>
 
+<% console.log(data[0].compuesto) %>
 
+    <p>
+        <% data[0].compuesto %>
+    </p>
 
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Compuesto</th>
+                <th scope="col">Marca</th>
+                <th scope="col">Descripción</th>
+                <th scope="col">Cantidad</th>
+                <th scope="col">Opciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="table-light">
+                <% for(var i = 0; i < data.length; i++) { %>
+                    <tr>
+                        <td>
+                            <% data[i].compuesto %>
+                        </td>
 
-<table class="table table-hover">
-    <thead>
-        <tr>
-            <th scope="col">Compuesto</th>
-            <th scope="col">Marca</th>
-            <th scope="col">Descripción</th>
-            <th scope="col">Cantidad</th>
-            <th scope="col">Opciones</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr class="table-light">
-
-            <!--
-            <th scope="row">Light</th>
-            <td>Column content</td>
-            <td>Column content</td>
-            <td>Column content</td>
-            <td><a href="#" class="btn btn-outline-warning ml-3"><i class="fas fa-trash-alt text-danger"></i></a></td>
-            -->
-        </tr>
-    </tbody>
-</table>
+                        <!--
+                        <th scope="row">Light</th>
+                        <td>Column content</td>
+                        <td>Column content</td>
+                        <td>Column content</td>
+                        <td><a href="#" class="btn btn-outline-warning ml-3"><i class="fas fa-trash-alt text-danger"></i></a></td>
+                    -->
+                    </tr>
+                    <%} %>
+            </tr>
+        </tbody>
+    </table>
