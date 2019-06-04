@@ -1,9 +1,16 @@
 const express = require('express');
 const router = express.Router();
 const { ensureAuthenticated } = require('../config/auth');
+const bcrypt = require('bcryptjs');
 
-//Tasks
+//Inventarios
 const Tasks = require('../models/Tasks');
+
+//User model
+const User = require('../models/User');
+
+//Prestamos
+//const Presta = require('../models/Presta');
 
 //Inicio
 router.get('/dashboard', ensureAuthenticated, (req, res) =>
@@ -30,21 +37,6 @@ router.get('/agregarinv', ensureAuthenticated, (req, res) =>
         name: req.user.name,
         email: req.user.email
     }));
-
-//Prestamos
-router.get('/prestamos', ensureAuthenticated, (req, res) =>
-    res.render('prestamos', {
-        name: req.user.name,
-        email: req.user.email
-    }));
-
-//Cuenta
-router.get('/cuenta', ensureAuthenticated, (req, res) =>
-    res.render('cuenta', {
-        name: req.user.name,
-        email: req.user.email
-    }));
-
 
 //AGREGAR INVENTARIO
 router.post('/addinv', ensureAuthenticated, function(req, res) {
@@ -117,26 +109,122 @@ router.get('/editar/:id', ensureAuthenticated, (req, res) =>
 router.post('/modify/:id', ensureAuthenticated, function(req, res) {
     const { marca, compuesto, descripcion, cantidad } = req.body;
     const id = req.params.id;
-    console.log(id);
+
+    console.log(id, marca, compuesto, descripcion, cantidad);
+
     let errors = [];
+
     if (!marca || !compuesto || !descripcion || !cantidad) {
         errors.push('Faltan campos');
     }
+    console.log(errors);
     if (errors.length > 0) {
         res.render('editar', {
+            errors,
             marca,
             compuesto,
             descripcion,
             cantidad,
-            id
+            id,
+            name: req.user.name,
+            email: req.user.email
         });
     } else {
-        Tasks.findByIdAndUpdate({ _id: id }, { marca: marca, compuesto: compuesto, descripcion: descripcion, cantidad: cantidad })
+        Tasks.findByIdAndUpdate({ _id: id }, { marca: marca, compuesto: compuesto, descripcion: descripcion, cantidad: cantidad, fecha: Date.now() })
             .then(task => {
                 req.flash('sucess_msg', 'Se agregó correctamente');
                 res.redirect('/dashboard/inventario');
             }).catch(err => console.log(err));
     }
 });
+
+//Eliminar
+router.get('/delete/:id', ensureAuthenticated, function(req, res) {
+
+    Tasks.findByIdAndDelete({ _id: req.params.id }).then(task => {
+        res.redirect('/dashboard/inventario');
+    }).catch(err => console.log(err));
+});
+/*
+//-------PRESTAMOS---------
+router.get('/prestamos', ensureAuthenticated, (req, res) =>
+    res.render('prestamos', {
+        name: req.user.name,
+        email: req.user.email
+    }));
+
+*/
+
+
+//----CUENTA----
+router.get('/cuenta', ensureAuthenticated, (req, res) =>
+    res.render('cuenta', {
+        name: req.user.name,
+        email: req.user.email
+    }));
+
+router.get('/mcuenta', ensureAuthenticated, function(req, res) {
+
+    User.findOne({ email: req.user.email }).then(user => {
+        if (user) {
+            const id = user._id;
+
+            console.log(id);
+
+            res.render('mcuenta', {
+                name: req.user.name,
+                email: req.user.email,
+                id: id
+            })
+        }
+    });
+});
+
+router.post('/upcuenta/:id', ensureAuthenticated, function(req, res) {
+    const { name, email, password, password2 } = req.body;
+    const id = req.params.id;
+    let errors = [];
+
+    if (!name || !email || !password || !password2) {
+        errors.push({ msg: 'Completa los campos' });
+    }
+
+    if (password !== password2) {
+        errors.push({ msg: 'Las contraseñas no son iguales' });
+    }
+
+    if (password.length < 8) {
+        errors.push({ msg: 'La contraseña debe tener al menos 8 caracteres' });
+    }
+
+    if (errors.length > 0) {
+        res.render('mcuenta', {
+            errors,
+            name,
+            email,
+            password,
+            password2
+        });
+    } else {
+        const tempUser = new User({
+            name,
+            email,
+            password
+        })
+        bcrypt.genSalt(10, (err, salt) =>
+            bcrypt.hash(tempUser.password, salt, (err, hash) => {
+                if (err) throw err;
+                tempUser.password = hash;
+                //console.log(tempUser.password);
+                User.findByIdAndUpdate({ _id: id }, { name: tempUser.name, email: tempUser.email, password: tempUser.password })
+                    .then(data => {
+                        req.flash('success_msg', 'Datos actualizados!');
+                        res.redirect('/dashboard/cuenta');
+                    })
+                    .catch(err => console.log(err));
+            }));
+    }
+});
+
 
 module.exports = router;

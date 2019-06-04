@@ -35,7 +35,9 @@
 <div class="py-5 text-center mt-5">
     <h2>Editar inventario</h2>
 </div>
+
 <% include ./partials/messages %>
+
     <div class="container py-3">
         <form action="/dashboard/modify/<%= typeof id != 'undefined' ? id: id%>" method="POST" class="container" autocomplete="off">
             <fieldset class="container">
@@ -44,12 +46,12 @@
                 <div class="row container">
                     <div class="form-group">
                         <label>Marca</label>
-                        <input type="text" class="form-control" id="marca" value="<%= marca %>">
+                        <input type="text" class="form-control" id="marca" name="marca" value="<%= marca %>">
                     </div>
 
                     <div class="form-group ml-5">
                         <label>Compuesto</label>
-                        <input type="text" class="form-control" id="compuesto" value="<%= compuesto %>">
+                        <input type="text" class="form-control" id="compuesto" name="compuesto" value="<%= compuesto %>">
                     </div>
                     <div class="form-group ml-5">
                         <label>Cantidad (lt)</label>

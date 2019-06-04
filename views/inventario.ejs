@@ -12,9 +12,9 @@
             <li class="nav-item active">
                 <a class="nav-link" href="/dashboard/inventario">Inventario <span class="sr-only">(current)</span></a>
             </li>
-            <li class="nav-item">
+            <!-- <li class="nav-item">
                 <a class="nav-link" href="/dashboard/prestamos">Préstamos</a>
-            </li>
+            </li>-->
             <li class="nav-item">
                 <a class="nav-link" href="/dashboard/cuenta">Mi Cuenta</a>
             </li>
@@ -32,12 +32,10 @@
     </div>
 </nav>
 
-
 <div class="pricing-header mt-5 px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
     <h1 class="display-4">Inventario</h1>
     <p>
         <a href="/dashboard/agregarinv" class="btn btn-success btn-lg my-2"><i class="fas fa-plus text-white"></i>&nbsp;&nbsp;Agregar</a>
-        <!--<a href="/dashboard/salidainv" class="btn btn-danger my-2"><i class="fas fa-minus"></i>&nbsp;&nbsp;Salida</a>-->
     </p>
 </div>
 <% include ./partials/messages %>
@@ -48,6 +46,7 @@
                 <th scope="col">Marca</th>
                 <th scope="col">Descripción</th>
                 <th scope="col">Cantidad</th>
+                <th scope="col">Fecha de modificación</th>
                 <th scope="col">Opciones</th>
             </tr>
         </thead>
@@ -67,10 +66,28 @@
                         <%= data[i].cantidad %>
                     </td>
                     <td>
-                        <a href="/dashboard/editar/<%= data[i]._id %>" class="btn btn-outline-success ml-3"><i class="fas fa-pen text-muted"></i></a>
-                        <a href="/dashboard/eliminar" class="btn btn-outline-warning ml-3"><i class="fas fa-trash-alt text-danger"></i></a>
+                        <%= data[i].fecha %>
+                    </td>
+                    <td>
+                        <a href="/dashboard/editar/<%= data[i]._id %>" class="btn btn-outline-success"><i class="fas fa-pen text-muted"></i></a>
+                        <button onclick="myFunction('<%= data[i]._id %>')" class="btn btn-outline-warning"><i class="fas fa-trash-alt text-danger"></i></button>
                     </td>
                 </tr>
                 <%} %>
         </tbody>
     </table>
+
+    <div class="container">
+        <a href="/dashboard/dashboard" class="btn btn-secondary bnt-lg"><i><i class="fas fa-arrow-left text-white"></i></i>&nbsp;&nbsp;Regresar</a>
+    </div>
+
+    <script>
+        function myFunction(id) {
+            var r = confirm("Deseas eliminar este registro?");
+            if (r == true) {
+                location.replace(`/dashboard/delete/${id}`);
+            } else {
+                location.replace('/dashboard/inventario');
+            }
+        }
+    </script>

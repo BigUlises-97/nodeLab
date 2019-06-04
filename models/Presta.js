@@ -1,28 +1,24 @@
 const mongoose = require('mongoose');
 
-const TasksSchema = new mongoose.Schema({
-    compuesto: {
+const PrestaSchema = new mongoose.Schema({
+    responsable: {
         type: String,
         required: true
     },
-    marca: {
+    herramienta: {
         type: String,
         required: true
     },
-    descripcion: {
+    limite: {
         type: String,
         required: true
     },
-    cantidad: {
-        type: String,
-        required: true
-    },
-    fecha: {
+    fechaAdquisicion: {
         type: Date,
         default: Date.now()
     }
 });
 
-const Tasks = mongoose.model('Tasks', TasksSchema);
+const Presta = mongoose.model('Presta', PrestaSchema);
 
-module.exports = Tasks;
+module.exports = Presta;
