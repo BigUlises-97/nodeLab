@@ -33,32 +33,32 @@
 </nav>
 
 <div class="py-5 text-center mt-5">
-    <h2>Agregar inventario</h2>
+    <h2>Editar inventario</h2>
 </div>
 <% include ./partials/messages %>
-    <div class="container py-5">
-        <form action="/dashboard/addinv" method="POST" class="container" autocomplete="off">
+    <div class="container py-3">
+        <form action="/dashboard/modify/<%= typeof id != 'undefined' ? id: id%>" method="POST" class="container" autocomplete="off">
             <fieldset class="container">
                 <legend>Datos del producto</legend>
                 <hr>
                 <div class="row container">
                     <div class="form-group">
                         <label>Marca</label>
-                        <input type="text" class="form-control" id="marca" name="marca" placeholder="Marca del producto" value="<%= typeof marca != 'undefined' ? marca: '' %>">
+                        <input type="text" class="form-control" id="marca" value="<%= marca %>">
                     </div>
 
                     <div class="form-group ml-5">
                         <label>Compuesto</label>
-                        <input type="text" class="form-control" id="compuesto" name="compuesto" placeholder="Compuesto">
+                        <input type="text" class="form-control" id="compuesto" value="<%= compuesto %>">
                     </div>
                     <div class="form-group ml-5">
                         <label>Cantidad (lt)</label>
-                        <input class="form-control" type="number" id="cantidad" name="cantidad" step="0.1" min="0.1" max="3.00" value="<%= typeof cantidad != 'undefined' ? cantidad: '0.1' %>">
+                        <input class="form-control" type="number" id="cantidad" name="cantidad" step="0.1" min="0.1" max="3.00" value="<%= cantidad %>">
                     </div>
                 </div>
                 <div class="form-group">
-                    <label>Descripción</label>
-                    <input class="form-control" type="text" id="descripcion" name="descripcion" placeholder="Agrega una descripción..." value="<%= typeof descripcion != 'undefined' ? descripcion: '' %>">
+                    <label>Descripcion</label>
+                    <input class="form-control" type="text" id="descripcion" name="descripcion" value="<%= descripcion %>">
                 </div>
                 <hr>
                 <div class="text-center">

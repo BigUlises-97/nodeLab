@@ -36,17 +36,11 @@
 <div class="pricing-header mt-5 px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
     <h1 class="display-4">Inventario</h1>
     <p>
-        <a href="/dashboard/agregarinv" class="btn btn-success my-2"><i class="fas fa-plus text-white"></i>&nbsp;&nbsp;Entrada</a>
-        <a href="/dashboard/salidainv" class="btn btn-danger my-2"><i class="fas fa-minus"></i>&nbsp;&nbsp;Salida</a>
+        <a href="/dashboard/agregarinv" class="btn btn-success btn-lg my-2"><i class="fas fa-plus text-white"></i>&nbsp;&nbsp;Agregar</a>
+        <!--<a href="/dashboard/salidainv" class="btn btn-danger my-2"><i class="fas fa-minus"></i>&nbsp;&nbsp;Salida</a>-->
     </p>
 </div>
-
-<% console.log(data[0].compuesto) %>
-
-    <p>
-        <% data[0].compuesto %>
-    </p>
-
+<% include ./partials/messages %>
     <table class="table table-hover">
         <thead>
             <tr>
@@ -58,22 +52,25 @@
             </tr>
         </thead>
         <tbody>
-            <tr class="table-light">
-                <% for(var i = 0; i < data.length; i++) { %>
-                    <tr>
-                        <td>
-                            <% data[i].compuesto %>
-                        </td>
-
-                        <!--
-                        <th scope="row">Light</th>
-                        <td>Column content</td>
-                        <td>Column content</td>
-                        <td>Column content</td>
-                        <td><a href="#" class="btn btn-outline-warning ml-3"><i class="fas fa-trash-alt text-danger"></i></a></td>
-                    -->
-                    </tr>
-                    <%} %>
-            </tr>
+            <% for(var i = 0; i < data.length; i++) { %>
+                <tr class="table-light">
+                    <td>
+                        <%= data[i].compuesto %>
+                    </td>
+                    <td>
+                        <%= data[i].marca %>
+                    </td>
+                    <td>
+                        <%= data[i].descripcion %>
+                    </td>
+                    <td>
+                        <%= data[i].cantidad %>
+                    </td>
+                    <td>
+                        <a href="/dashboard/editar/<%= data[i]._id %>" class="btn btn-outline-success ml-3"><i class="fas fa-pen text-muted"></i></a>
+                        <a href="/dashboard/eliminar" class="btn btn-outline-warning ml-3"><i class="fas fa-trash-alt text-danger"></i></a>
+                    </td>
+                </tr>
+                <%} %>
         </tbody>
     </table>

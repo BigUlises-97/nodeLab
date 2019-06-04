@@ -22,7 +22,6 @@ router.get('/inventario', ensureAuthenticated, (req, res) =>
             email: req.user.email,
             data: data
         })
-        console.log(data);
     }));
 
 //Agregar inventario
@@ -46,16 +45,98 @@ router.get('/cuenta', ensureAuthenticated, (req, res) =>
         email: req.user.email
     }));
 
-/*
-router.post('/addinv', ensureAuthenticated, (req, res) => {
-    model.find({}, (req, tasks) => {
-        if (err) throw err;
-        res.render('/inventario', {
+
+//AGREGAR INVENTARIO
+router.post('/addinv', ensureAuthenticated, function(req, res) {
+    const { marca, compuesto, descripcion, cantidad } = req.body; //extrae variables
+    let errors = [];
+
+    if (!marca || !compuesto || !descripcion || !cantidad) {
+        errors.push({ msg: 'Faltan campos' });
+    }
+
+    if (errors.length > 0) {
+        res.render('agregarinv', {
+            errors,
+            marca,
+            compuesto,
+            descripcion,
+            cantidad,
+            name: req.user.name,
+            email: req.user.email
+        });
+    } else {
+        Tasks.findOne({ compuesto: compuesto })
+            .then(compst => {
+                if (compst) {
+                    //ya existe el compuesto
+                    errors.push({ msg: 'Ya está registrado ese compuesto' });
+                    console.log(marca, descripcion, cantidad);
+                    res.render('agregarinv', {
+                        errors,
+                        marca,
+                        descripcion,
+                        cantidad,
+                        name: req.user.name,
+                        email: req.user.email
+                    });
+                } else {
+                    const newTask = new Tasks({
+                        compuesto,
+                        marca,
+                        descripcion,
+                        cantidad
+                    });
+                    newTask.save()
+                        .then(task => {
+                            req.flash('success_msg', 'Se agregó correctamente');
+                            res.redirect('/dashboard/inventario');
+                        })
+                        .catch(err => console.log(err));
+                }
+            });
+    }
+});
+
+
+//EDITAR INVENTARIO
+router.get('/editar/:id', ensureAuthenticated, (req, res) =>
+    Tasks.findById(req.params.id).then(data => {
+        res.render('editar', {
             name: req.user.name,
             email: req.user.email,
-            task: tasks
+            compuesto: data.compuesto,
+            marca: data.marca,
+            descripcion: data.descripcion,
+            cantidad: data.cantidad,
+            id: req.params.id
+        })
+    }));
+
+//MODIFICAR INVENTARIO
+router.post('/modify/:id', ensureAuthenticated, function(req, res) {
+    const { marca, compuesto, descripcion, cantidad } = req.body;
+    const id = req.params.id;
+    console.log(id);
+    let errors = [];
+    if (!marca || !compuesto || !descripcion || !cantidad) {
+        errors.push('Faltan campos');
+    }
+    if (errors.length > 0) {
+        res.render('editar', {
+            marca,
+            compuesto,
+            descripcion,
+            cantidad,
+            id
         });
-    });
+    } else {
+        Tasks.findByIdAndUpdate({ _id: id }, { marca: marca, compuesto: compuesto, descripcion: descripcion, cantidad: cantidad })
+            .then(task => {
+                req.flash('sucess_msg', 'Se agregó correctamente');
+                res.redirect('/dashboard/inventario');
+            }).catch(err => console.log(err));
+    }
 });
-*/
+
 module.exports = router;

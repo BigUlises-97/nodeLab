@@ -9,6 +9,10 @@ const TasksSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    descripcion: {
+        type: String,
+        required: true
+    },
     cantidad: {
         type: String,
         required: true
